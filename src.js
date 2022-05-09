@@ -200,9 +200,10 @@ class BrassDocumentElement extends BrassElement {
 		return BRASS_GetBrassElement(this._Dom.head);	
 	}
 	//Create Functions
-	CreateElement(Tag){
+	CreateElement(Tag,Properties={}){
 		let NewElement = this._Dom.createElement(Tag);
 		let Proxy = new BrassElement(NewElement);
+		for(let Name in Properties)Proxy[Name]=Properties[Name];
 		return Proxy;
 	}
 	ElementById(Id){
