@@ -1,20 +1,32 @@
 //{{ Internal Settings }}\\
 
 const BRASS_SETTINGS = {
-	AttributeName:"BRASS_BrassElementReference",	
+	AttributeName:"BRASS_BrassElementReference",
+	BrassClasses:{},
 };
 
 //{{ Internal Functions }}\\
 
+function BRASS_NewClass(Name,Class){
+	BRASS_SETTINGS.BrassClasses[Name]=Class;	
+}
+
 function BRASS_GetBrassProxy(Element){
 	return Element.getAttribute(BRASS_SETTINGS.AttributeName);
+}
+
+function BRASS_BrassClassByTagName(Tag){
+	for(let Name in BRASS_SETTINGS.BrassClasses){
+		if(Name==Tag.toLowerCase())return BRASS_SETTINGS.BrassClasses[Name];
+	}
+	return BrassElement;
 }
 
 function BRASS_GetBrassElement(Element){
 	if(Element instanceof BrassElement)return Element;
 	let BrassProxy = BRASS_GetBrassProxy(Element);
 	if(BrassProxy)return BrassProxy;
-	return new BrassElement(Element);
+	return new (BRASS_BrassClassByTagName(Element.tagName))(Element);
 }
 
 function BRASS_NodeListToBrass(List){
@@ -46,6 +58,13 @@ class BrassElement {
 	//ClassName Property
 	get ClassName(){
 		return this._DomReference.tagName;	
+	}
+	//Id Property
+	get Id(){
+		return this._DomReference.id;	
+	}
+	set Id(Value){
+		return this._DomReference.id=Value;	
 	}
 	//Parent Property
 	get Parent(){
@@ -165,3 +184,46 @@ class BrassDocumentElement extends BrassElement {
 		return BRASS_GetBrassElement(Raw);
 	}
 }
+
+//{{ Input Element Class }}\\
+
+class BrassInputElement extends BrassElement {
+	constructor(...A){
+		super(...A);
+	}
+	//Value Property
+	get Value(){
+		return this._DomReference.value;	
+	}
+	set Value(Value){
+		return this._DomReference.value=Value;	
+	}
+	//Type Property
+	get Type(){
+		return this._DomReference.type;	
+	}
+	set Type(Value){
+		return this._DomReference.type=Value;	
+	}
+}
+
+//{{ Text-Area Element Class}}\\
+
+class BrassTextAreaElement extends BrassElement {
+	constructor(...A){
+		super(...A);
+	}
+	//Value Property
+	get Value(){
+		return this._DomReference.value;	
+	}
+	set Value(Value){
+		return this._DomReference.value=Value;	
+	}
+}
+
+//{{ Adding Classes }}\\
+
+BRASS_NewClass("html",BrassDocumentElement);
+BRASS_NewClass("input",BrassInputElement);
+BRASS_NewClass("textarea",BrassTextAreaElement);
