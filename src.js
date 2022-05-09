@@ -159,4 +159,9 @@ class BrassDocumentElement extends BrassElement {
 		let Proxy = new BrassElement(NewElement);
 		return Proxy;
 	}
+	ElementById(Id){
+		let Raw = this._Dom.getElementById(Id);
+		if(!Raw)return Raw;
+		return BRASS_GetBrassElement(Raw);
+	}
 }
