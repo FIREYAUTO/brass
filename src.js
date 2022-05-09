@@ -3,6 +3,18 @@
 const BRASS_SETTINGS = {
 	AttributeName:"BRASS_BrassElementReference",
 	BrassClasses:{},
+	AttributeNames:{
+		"href":"HRef",
+		"src":"Source",
+		"id":"Id",
+		"value":"Value",
+		"name":"Name",
+		"className":"Classes",
+		"classList":"ClassList",
+		"width":"Width",
+		"height":"Height",
+		"type":"Type",
+	},
 };
 
 //{{ Internal Functions }}\\
@@ -54,17 +66,31 @@ class BrassElement {
 			let Value = Properties[Key];
 			Object.defineProperty(this,Key,Value);
 		}
+		let This=this;
+		for(let Name in Reference){
+			if(BRASS_SETTINGS.AttributeNames.hasOwnProperty(Name)){
+				Object.defineProperty(this,BRASS_SETTINGS.AttributeNames[Name],{
+					get:function(){
+						return This._DomReference[Name];	
+					},
+					set:function(Value){
+						return This._DomReference[Name]=Value;
+					},
+				});
+			}
+		}
+		this.Style = new window.Proxy({},{
+			get:function(self,Name){
+				return This._DomReference.style[`${Name.substr(0,1).toLowerCase()}${Name.substring(1,Name.length)}`];
+			},
+			set:function(self,Name,Value){
+				return This._DomReference.style[`${Name.substr(0,1).toLowerCase()}${Name.substring(1,Name.length)}`]=Value;
+			}
+		});
 	}
 	//ClassName Property
 	get ClassName(){
 		return this._DomReference.tagName;	
-	}
-	//Id Property
-	get Id(){
-		return this._DomReference.id;	
-	}
-	set Id(Value){
-		return this._DomReference.id=Value;	
 	}
 	//Parent Property
 	get Parent(){
@@ -185,45 +211,6 @@ class BrassDocumentElement extends BrassElement {
 	}
 }
 
-//{{ Input Element Class }}\\
-
-class BrassInputElement extends BrassElement {
-	constructor(...A){
-		super(...A);
-	}
-	//Value Property
-	get Value(){
-		return this._DomReference.value;	
-	}
-	set Value(Value){
-		return this._DomReference.value=Value;	
-	}
-	//Type Property
-	get Type(){
-		return this._DomReference.type;	
-	}
-	set Type(Value){
-		return this._DomReference.type=Value;	
-	}
-}
-
-//{{ Text-Area Element Class}}\\
-
-class BrassTextAreaElement extends BrassElement {
-	constructor(...A){
-		super(...A);
-	}
-	//Value Property
-	get Value(){
-		return this._DomReference.value;	
-	}
-	set Value(Value){
-		return this._DomReference.value=Value;	
-	}
-}
-
 //{{ Adding Classes }}\\
 
 BRASS_NewClass("html",BrassDocumentElement);
-BRASS_NewClass("input",BrassInputElement);
-BRASS_NewClass("textarea",BrassTextAreaElement);
