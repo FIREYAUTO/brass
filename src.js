@@ -107,6 +107,17 @@ class BrassElement {
 	RemoveEvent(...Arguments){
 		this._DomReference.removeEventListener(...Arguments);	
 	}
+	//Attribute Functions
+	GetAttribute(Name){
+		return this._DomReference.getAttribute(Name);	
+	}
+	SetAttribute(Name,Value){
+		this._DomReference.setAttribute(Name,Value);
+		return Value;	
+	}
+	RemoveAttribute(Name){
+		this._DomReference.removeAttribute(Name);	
+	}
 }
 
 //{{ Document Element Class }}\\
@@ -123,5 +134,11 @@ class BrassDocumentElement extends BrassElement {
 	//Head Property
 	get Head(){
 		return BRASS_GetBrassElement(this._DomReference.head);	
+	}
+	//Create Functions
+	CreateElement(Tag){
+		let NewElement = this._DomReference.createElement(Tag);
+		let Proxy = new BrassElement(NewElement);
+		return Proxy;
 	}
 }
