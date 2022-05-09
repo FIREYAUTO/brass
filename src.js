@@ -3,14 +3,16 @@
 const BRASS_SETTINGS = {
 	AttributeName:"BRASS_BrassElementReference",
 	BrassClasses:{},
-	AttributeNames:{
-		"href":"HRef",
-		"src":"Source",
+	DefaultAttributeNames:{
 		"id":"Id",
-		"value":"Value",
 		"name":"Name",
 		"className":"Classes",
 		"classList":"ClassList",
+	},
+	AttributeNames:{
+		"href":"HRef",
+		"src":"Source",
+		"value":"Value",
 		"width":"Width",
 		"height":"Height",
 		"type":"Type",
@@ -70,6 +72,16 @@ class BrassElement {
 			Object.defineProperty(this,Key,Value);
 		}
 		let This=this;
+		for(let Name in BRASS_SETTINGS.DefaultAttributeNames){
+			Object.defineProperty(this,BRASS_SETTINGS.AttributeNames[Name],{
+				get:function(){
+					return This._DomReference[Name];	
+				},
+				set:function(Value){
+					return This._DomReference[Name]=Value;
+				},
+			});
+		}
 		for(let Name in Reference){
 			if(BRASS_SETTINGS.AttributeNames.hasOwnProperty(Name)){
 				Object.defineProperty(this,BRASS_SETTINGS.AttributeNames[Name],{
@@ -212,6 +224,15 @@ class BrassDocumentElement extends BrassElement {
 		let Raw = this._Dom.getElementById(Id);
 		if(!Raw)return Raw;
 		return BRASS_GetBrassElement(Raw);
+	}
+}
+
+//{{ Default Creatable Class }}\\
+
+class BrassCreatableElement extends BrassElement {
+	constructor(Tag,Properties){
+		let Element = document.createElement(Tag);
+		super(Element,Properties);
 	}
 }
 
