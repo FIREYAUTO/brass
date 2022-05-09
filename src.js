@@ -140,8 +140,9 @@ class BrassElement {
 //{{ Document Element Class }}\\
 
 class BrassDocumentElement extends BrassElement {
-	constructor(...Arguments){
-		let Result = super(...Arguments);
+	constructor(Element,Properties){
+		let Result = super(Element.documentElement,Properties);
+		this._Dom=Element;
 		if(Result!=this)return Result;
 	}
 	//Body Property
@@ -154,7 +155,7 @@ class BrassDocumentElement extends BrassElement {
 	}
 	//Create Functions
 	CreateElement(Tag){
-		let NewElement = this._DomReference.createElement(Tag);
+		let NewElement = this._Dom.createElement(Tag);
 		let Proxy = new BrassElement(NewElement);
 		return Proxy;
 	}
