@@ -192,11 +192,11 @@ class BrassDocumentElement extends BrassElement {
 	}
 	//Body Property
 	get Body(){
-		return BRASS_GetBrassElement(this._DomReference.body);	
+		return BRASS_GetBrassElement(this._Dom.body);	
 	}
 	//Head Property
 	get Head(){
-		return BRASS_GetBrassElement(this._DomReference.head);	
+		return BRASS_GetBrassElement(this._Dom.head);	
 	}
 	//Create Functions
 	CreateElement(Tag){
