@@ -118,5 +118,5 @@ BRASS_NewClass("Tag Name Here",Your_Creatable_Class);
 ```
 Example:
 ```
-BRASS_NewClass("input",BaseInput);
+BRASS_NewClass("input",BaseInput); //Every HTML element with a tag of "input" will use the BaseInput class
 ```
