@@ -34,10 +34,14 @@ class BRASS_Error extends Error {
 //{{ Default Element Class }}\\
 
 class BrassElement {
-	constructor(Reference){
+	constructor(Reference,Properties={}){
 		let Proxy = BRASS_GetBrassProxy(Reference);
 		if(Proxy)return Proxy;
 		this._DomReference = Reference;
+		for(let Key in Properties){
+			let Value = Properties[Key];
+			Object.defineProperty(this,Key,Value);
+		}
 	}
 	//ClassName Property
 	get ClassName(){
@@ -117,6 +121,19 @@ class BrassElement {
 	}
 	RemoveAttribute(Name){
 		this._DomReference.removeAttribute(Name);	
+	}
+	//Property Setting
+	get InnerHTML(){
+		return this._DomReference.innerHTML;	
+	}
+	set InnerHTML(Value){
+		return this._DomReference.innerHTML=Value;
+	}
+	get InnerText(){
+		return this._DomReference.innerText;	
+	}
+	set InnerText(Value){
+		return this._DomReference.innerText=Value;
 	}
 }
 
