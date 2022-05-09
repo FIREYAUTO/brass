@@ -112,7 +112,7 @@ Btn.AddEvent("mousedown",()=>{
 	alert(Input.Value);
 });
 ```
-When you make an extending class off the BrassCreateableElement class, the super function requires at least one property: `Tag`. The `Tag` property will be used to create a new element with the given tag when you make a new class. You can add just about anything you want to your custom Brass class. If you want to make it so every HTML element that comes into contact with brass will extend your custom class, call this function:
+When you make an extending class off the BrassCreateableElement class, the super function requires at least one argument: `Tag`. The `Tag` argument will be used to create a new element with the given tag when you make a new class. You can add just about anything you want to your custom Brass class. If you want to make it so every HTML element that comes into contact with brass will extend your custom class, call this function:
 ```
 BRASS_NewClass("Tag Name Here",Your_Creatable_Class);
 ```
