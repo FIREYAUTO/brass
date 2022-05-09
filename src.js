@@ -73,7 +73,7 @@ class BrassElement {
 		}
 		let This=this;
 		for(let Name in BRASS_SETTINGS.DefaultAttributeNames){
-			Object.defineProperty(this,BRASS_SETTINGS.AttributeNames[Name],{
+			Object.defineProperty(this,BRASS_SETTINGS.DefaultAttributeNames[Name],{
 				get:function(){
 					return This._DomReference[Name];	
 				},
