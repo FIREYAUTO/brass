@@ -14,6 +14,7 @@ const BRASS_SETTINGS = {
 		"width":"Width",
 		"height":"Height",
 		"type":"Type",
+		"placeholder":"Placeholder",
 	},
 };
 
