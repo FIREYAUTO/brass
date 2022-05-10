@@ -77,7 +77,7 @@ BrassElement.ElementById(Id) //Returns a BrassElement with the given id.
 Brass has a creatable-element feature, which allows you to easily make your own classes for reusability.
 Here is an example of a brass createable-element:
 ```
-class BaseInput extends BrassCreatableElement { //This is a BaseInput class, which extends the BrassCreateableElement class
+class BaseInput extends BrassCreatableElement { //This is a BaseInput class, which extends the BrassCreatableElement class
 	constructor(Parent,Type,Properties={}){
     	super("input");
         for(let Name in Properties)this[Name]=Properties[Name];
@@ -112,7 +112,7 @@ Btn.AddEvent("mousedown",()=>{
 	alert(Input.Value);
 });
 ```
-When you make an extending class off the BrassCreateableElement class, the super function requires at least one argument: `Tag`. The `Tag` argument will be used to create a new element with the given tag when you make a new class. You can add just about anything you want to your custom Brass class. If you want to make it so every HTML element that comes into contact with brass will extend your custom class, call this function:
+When you make an extending class off the BrassCreatableElement class, the super function requires at least one argument: `Tag`. The `Tag` argument will be used to create a new element with the given tag when you make a new class. You can add just about anything you want to your custom Brass class. If you want to make it so every HTML element that comes into contact with brass will extend your custom class, call this function:
 ```
 BRASS_NewClass("Tag Name Here",Your_Creatable_Class);
 ```
