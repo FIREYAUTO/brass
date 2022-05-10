@@ -7,7 +7,6 @@ const BRASS_SETTINGS = {
 		"id":"Id",
 		"name":"Name",
 		"className":"Classes",
-		"classList":"ClassList",
 	},
 	AttributeNames:{
 		"href":"HRef",
@@ -19,6 +18,8 @@ const BRASS_SETTINGS = {
 		"placeholder":"Placeholder",
 		"alt":"Alt",
 		"target":"Target",
+		"min":"Min",
+		"max":"Max",
 	},
 };
 
@@ -57,6 +58,54 @@ function BRASS_NodeListToBrass(List){
 class BRASS_Error extends Error {
 	constructor(Text){
 		super(Text).name=this.constructor.name;
+	}
+}
+
+class BRASS_ClassList {
+	constructor(List){
+		this._ClassList=List;	
+	}
+	get length(){
+		return this._ClassList.length;	
+	}
+	get Value(){
+		return this._ClassList.value;
+	}
+	Item(x){
+		return this._ClassList.item(x);	
+	}
+	Contains(...a){
+		return this._ClassList.contains(...a);	
+	}
+	Add(...a){
+		return this._ClassList.add(...a);	
+	}
+	Remove(...a){
+		return this._ClassList.remove(...a);	
+	}
+	Replace(...a){
+		return this._ClassList.replace(...a);	
+	}
+	Supports(...a){
+		return this._ClassList.supports(...a);	
+	}
+	Toggle(...a){
+		return this._ClassList.toggle(...a);	
+	}
+	Entries(...a){
+		return this._ClassList.entries(...a);	
+	}
+	Each(...a){
+		return this._ClassList.forEach(...a);	
+	}
+	Keys(...a){
+		return this._ClassList.keys(...a);	
+	}
+	Values(...a){
+		return this._ClassList.values(...a);	
+	}
+	toString(){
+		return this._ClassList.toString();	
 	}
 }
 
@@ -106,6 +155,9 @@ class BrassElement {
 	//ClassName Property
 	get ClassName(){
 		return this._DomReference.tagName;	
+	}
+	get ClassList(){
+		return new BRASS_ClassList(this._DomReference.classList);	
 	}
 	//Parent Property
 	get Parent(){
